@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 @Service
@@ -37,5 +38,9 @@ public class TempService {
 
     public TempData getLastTempData() {
         return tempDataDao.getLastTempData(1).get(0);
+    }
+
+    public List<TempData> getLastNTempData(@NotNull Integer nData) {
+        return tempDataDao.getLastTempData(nData);
     }
 }

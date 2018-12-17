@@ -6,6 +6,8 @@ import com.google.cloud.Timestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/tempdata")
 public class TempDataController {
@@ -13,14 +15,14 @@ public class TempDataController {
     @Autowired
     TempService tempService;
 
-    @RequestMapping(value="/save", method= RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value="", method= RequestMethod.POST, consumes = "application/json")
     public boolean saveTempData(@RequestBody TempData tempData) {
         tempData.setDateTime(Timestamp.now());
 
         return tempService.addTempData(tempData) != null;
     }
 
-    @RequestMapping(value="/tempdata", method=RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value="", method=RequestMethod.GET, produces = "application/json")
     public String getTempData(@RequestParam(value="id") Long id) {
         tempService.getTempData(id);
 
@@ -43,4 +45,10 @@ public class TempDataController {
     public TempData testGetLastTempData() {
         return tempService.getLastTempData();
     }
+
+    @RequestMapping(value="/test3", method= RequestMethod.GET, produces = "application/json")
+    public List<TempData> testGetLast10TempData() {
+        return tempService.getLastNTempData(10);
+    }
+
 }
