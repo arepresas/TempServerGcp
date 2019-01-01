@@ -31,15 +31,26 @@ public class TempDataDao {
         return datastore.put(tempDataToEntity(tempData));
     }
 
-    public Entity getTempData(@NotNull Long id) {
-        return datastore.get(tempDataKeyFactory.newKey(id));
+    public TempData getTempData(@NotNull Long id) {
+        return entityToTempData(
+                datastore.get(tempDataKeyFactory.newKey(id))
+        );
     }
 
     public void deleteTempData(@NotNull Long id) {
         datastore.delete(tempDataKeyFactory.newKey(id));
     }
 
-    public List<TempData> getLastTempData(int nResults) {
+    public List<TempData> getTempDataList() {
+        Query<Entity> query = Query.newEntityQueryBuilder()
+                .setKind("TempData")
+                .setOrderBy(StructuredQuery.OrderBy.desc("dateTime"))
+                .build();
+
+        return queryResultsToList(datastore.run(query)); // .stream().limit(nResults).collect(Collectors.toList());
+    }
+
+    public List<TempData> getLastNTempData(int nResults) {
         Query<Entity> query = Query.newEntityQueryBuilder()
                 .setKind("TempData")
                 .setOrderBy(StructuredQuery.OrderBy.desc("dateTime"))

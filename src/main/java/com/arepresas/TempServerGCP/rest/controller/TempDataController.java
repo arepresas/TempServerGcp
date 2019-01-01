@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/tempdata")
 public class TempDataController {
 
@@ -23,10 +24,18 @@ public class TempDataController {
     }
 
     @RequestMapping(value="", method=RequestMethod.GET, produces = "application/json")
-    public String getTempData(@RequestParam(value="id") Long id) {
-        tempService.getTempData(id);
+    public TempData getTempData(@RequestParam(value="id") Long id) {
+        return tempService.getTempData(id);
+    }
 
-        return null;
+    @RequestMapping(value="/getList", method=RequestMethod.GET, produces = "application/json")
+    public List<TempData> getTempDataList() {
+        return tempService.getTempDataList();
+    }
+
+    @RequestMapping(value="/getLast", method= RequestMethod.GET, produces = "application/json")
+    public TempData testGetLastTempData() {
+        return tempService.getLastTempData();
     }
 
     // TESTS
@@ -42,7 +51,7 @@ public class TempDataController {
     }
 
     @RequestMapping(value="/test2", method= RequestMethod.GET, produces = "application/json")
-    public TempData testGetLastTempData() {
+    public TempData testGetLastTempDataTest() {
         return tempService.getLastTempData();
     }
 
