@@ -42,10 +42,13 @@ public class TempDataController {
 
     @RequestMapping(value="/test1", method= RequestMethod.GET)
     public Long testAddTempData() {
+        Double randomTemp = Math.random() * (40 - 10);
+        Double randomHum = Math.random() * (100 - 30);
+
         TempData tempData = new TempData();
         tempData.setDateTime(Timestamp.now());
-        tempData.setTemperature(10L);
-        tempData.setHumidity(100L);
+        tempData.setTemperature(randomTemp.longValue());
+        tempData.setHumidity(randomHum.longValue());
 
         return tempService.addTempData(tempData);
     }
