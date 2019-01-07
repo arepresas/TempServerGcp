@@ -87,10 +87,12 @@ public class TempDataDao {
 
     private TempData entityToTempData(Entity entity) {
         TempData result = new TempData();
-        result.setId(entity.getKey().getId());
-        result.setDateTime(entity.getTimestamp("dateTime"));
-        result.setTemperature(entity.getLong("temperature"));
-        result.setHumidity(entity.getLong("humidity"));
+        if (entity != null) {
+            result.setId(entity.getKey().getId());
+            result.setDateTime(entity.getTimestamp("dateTime"));
+            result.setTemperature(entity.getLong("temperature"));
+            result.setHumidity(entity.getLong("humidity"));
+        }
 
         return result;
     }

@@ -28,6 +28,12 @@ public class TempDataController {
         return tempService.getTempData(id);
     }
 
+    @RequestMapping(value="", method=RequestMethod.DELETE)
+    public void deleteTempData(@RequestParam(value="id") Long id) {
+        tempService.deleteTempData(id);
+    }
+
+
     @RequestMapping(value="/getList", method=RequestMethod.GET, produces = "application/json")
     public List<TempData> getTempDataList() {
         return tempService.getTempDataList();
