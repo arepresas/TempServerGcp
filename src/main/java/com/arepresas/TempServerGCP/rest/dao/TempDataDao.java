@@ -44,7 +44,7 @@ public class TempDataDao {
     public List<TempData> getTempDataList() {
         Query<Entity> query = Query.newEntityQueryBuilder()
                 .setKind("TempData")
-                .setOrderBy(StructuredQuery.OrderBy.desc("dateTime"))
+                .setOrderBy(StructuredQuery.OrderBy.asc("dateTime"))
                 .build();
 
         return queryResultsToList(datastore.run(query)); // .stream().limit(nResults).collect(Collectors.toList());

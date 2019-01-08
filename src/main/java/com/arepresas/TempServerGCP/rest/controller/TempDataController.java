@@ -1,6 +1,8 @@
 package com.arepresas.TempServerGCP.rest.controller;
 
+import com.arepresas.TempServerGCP.rest.model.MaxMinData;
 import com.arepresas.TempServerGCP.rest.model.TempData;
+import com.arepresas.TempServerGCP.rest.model.enums.TypeDataEnum;
 import com.arepresas.TempServerGCP.rest.service.TempService;
 import com.google.cloud.Timestamp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +42,18 @@ public class TempDataController {
     }
 
     @RequestMapping(value="/getLast", method= RequestMethod.GET, produces = "application/json")
-    public TempData testGetLastTempData() {
+    public TempData getLastTempData() {
         return tempService.getLastTempData();
+    }
+
+    @RequestMapping(value="/getMaxMinTemp", method= RequestMethod.GET, produces = "application/json")
+    public MaxMinData getMaxMinTemp() {
+        return tempService.getMaxMinData(TypeDataEnum.TEMPERATURE);
+    }
+
+    @RequestMapping(value="/getMaxMinHum", method= RequestMethod.GET, produces = "application/json")
+    public MaxMinData getMaxMinHumidity() {
+        return tempService.getMaxMinData(TypeDataEnum.HUMIDITY);
     }
 
     // TESTS
